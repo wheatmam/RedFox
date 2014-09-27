@@ -1,0 +1,79 @@
+html {
+    display: table;
+    margin: auto;
+    width:80%;
+}
+
+#clip {
+	position: bottom;
+    margin-bottom: 20px;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    width:600%;
+	text-align: center;
+	z-index: 2;
+}
+
+td {
+    width:200px;
+}
+
+#badge {
+	z-index:5;
+}
+
+.contentContainer {
+	margin-top:5%;
+	margin-bottom:10%;
+	padding:2.5% 5% 2.5% 5%;
+	background: rgba(225, 225, 225, .65);
+	border-radius: 25px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50em;
+}
+.content {
+	opacity:1.0;
+}
+
+.nameList {
+    font-weight: 700;
+    font-size: 16px;
+    color:black;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+form {
+	margin: 0 auto;
+}
+hr.style-seven {
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+    opacity:.7;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;    
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+    opacity:.7;
+}
+#message {
+	color:red;
+	font: bold;
+	background-color: rgb(35, 10, 10)
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet type='text/css' href="{{url_for('static', filename='css/style.css')}}">
+    
+  </head>
+  
+  
+  <body background="/static/img/cork.jpg">
+    <div class="contentContainer">
+      <div class="content">
+        <h1 id="toFill"> The Dancer's Bulletin Board </h1>
+        <input type="button" id="search" class="btn btn-info" value="Find Other Friends' Boards" onclick="searchBoard()"/>
+        <hr class="style-seven"/>
+          <h2 id="toFillUsername></h2>
+      </div>
+    </div>
+    <image id="clip" src="/static/img/clip.gif">
+  </body>
+  <script>
+  var url = document.URL;
+  url = url.split("/")[3];
+  url = url[0].toUpperCase() + url.slice(1);
+  $('#toFill')[0].innerHTML = url + "'s Dancing Bulletin Board";
+
+  </script>
+</html>

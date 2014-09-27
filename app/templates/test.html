@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet type='text/css' href="{{url_for('static', filename='css/style.css')}}">
+    
+  </head>
+  
+  
+  <body background="/static/img/cork.jpg">
+    <div class="contentContainer">
+      <div class="content">
+        <h1> The Dancer's Bulletin Board </h1>
+        <input type="button" id="search" class="btn btn-info" value="Find A Friend's Board" onclick="searchBoard()"/>
+        <hr class="style-seven"/>
+        <div class="MakeNewProfile">
+          <h2>Make a New Bulletin Board</h2>
+          <p id="message" hidden='true'></p>
+          <form id="newBoardForm">
+            <table>
+              <tr>
+                <td>
+                  <h3>First name</h3>
+                </td>
+                <td>
+                  <input type="text" name="firstname" class="form-control" id="fn">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h3>Last name</h3>
+                </td>
+                <td>
+                  <input type="text" name="lastname" class="form-control" id="ln">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h3 id="bnLabel">Board name</h3>
+                </td>
+                <td>
+                  <input type="text" name="boardname" class="form-control" id="bn">
+                </td>
+              </tr>
+            </table>
+          </form>
+          <br/>
+          <input type="button" id="MakeNewProfileSubmit" value="Bring Me To My Board!" class="btn btn-success" onclick="newBoard()"/>
+        </div>
+        <p id="temp"></p>
+      </div>
+    </div>
+    <image id="clip" src="/static/img/clip.gif">
+  </body>
+  <script>
+  function newBoard() {
+    $('#bnLabel').css('color', 'inherit', 'font-weight', 'normal');
+    var message = "";
+    var firstname = $('#fn')[0].value;
+    var lastname = $('#ln')[0].value;
+    var boardname = $('#bn')[0].value;
+    if (firstname == "") {
+      message = message + "Please include a first name.<br/>";
+    };
+
+    if (lastname == "") {
+      message = message + "Please include a last name.<br/>";
+    };
+
+    if (boardname == "") {
+      message = message + "Please include a board name.<br/>";
+    };
+
+    var data = {
+      firstname: firstname,
+      lastname: lastname,
+      boardname: boardname
+    };
+    var canSubmit = false;
+    if (message == "") {
+      canSubmit = true
+    } else {
+      $('#message')[0].innerHTML = message;
+      $('#message').fadeIn()
+    }
+
+    if (canSubmit) {
+      $.ajax({
+        type: 'POST',
+        url: '/uploadNewBoard',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function() {
+          window.location.replace("/" + data['boardname'])
+        },
+        error: function(request,error) {
+        console.log(error);
+          $('#message')[0].innerHTML = "Board name already in use. <br/>";
+          $('#bn').css('color', 'red');
+          $('#message').fadeIn()
+        }
+      });
+    }
+    return false;
+  }
+  </script>
+</html>

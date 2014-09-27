@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search</title>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet type='text/css' href="{{url_for('static', filename='css/style.css')}}">
+    
+  </head>
+  <body background="/static/img/cork.jpg">
+    <div class="contentContainer">
+    <h1> The Dancer's Bulletin Board </h1>
+
+    <div class="searchDiv">
+      <form id="newBoardList">
+            <table>
+              <tr>
+                 <td>
+                  <input type="text" name="search" class="form-control" id="searchField">
+                </td>
+                <td>
+                  <!-- Single button -->
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                      Search For Boards By <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a onclick="firstSearch($('#searchField')[0].value)">First Name</a></li>
+                      <li><a onclick="lastSearch($('#searchField')[0].value)">Last Name</a></li>
+                      <li><a onclick="boardSearch($('#searchField')[0].value)">Board Name</a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </form>
+      
+    </div>
+    <div class="resultsDiv" hidden="true">
+      <hr class="style-seven"/>
+      <h3 id="resultsLabel">Results</h3>
+      <div id="searchResults">
+      </div>
+    </div>
+  </div>
+    <image id="clip" src="/static/img/clip.gif">
+  </body>
+  <script>
+  var fakeNames = ["alpha", "beta", "gamma", "episilon", "omega"];
+
+  function submitSearch(value, kind) {
+    $('#searchResults').innerHTML = "";
+    $('.resultsDiv').fadeIn();
+    // var data = {field:kind,query:value};
+    // .ajax(
+    //     {url:'/uploadSearch',
+    //     data:data,
+    //   201:function() {
+    //       window.location.replace("/"+data['boardname'])},
+    //     302:function() {
+    //       $('#message').fadeIn()},
+    //     error:function() {
+    //       console.log("error");
+    //     }
+    //   });
+    results = fakeNames;
+    return results;
+  }
+
+
+  function searchBoard() {
+    window.location.replace("/search");
+  }
+
+  function firstSearch(value) {
+    $('#searchResults')[0].innerHTML = "";
+    makeDisplay(submitSearch(value, "first"));
+  }
+
+  function lastSearch(value) {
+    $('#searchResults')[0].innerHTML = "";
+    makeDisplay(submitSearch(value, "last"));
+  }
+
+  function boardSearch(value) {
+    $('#searchResults')[0].innerHTML = "";
+    makeDisplay(submitSearch(value, "board"));
+  }
+
+  function makeDisplay(names) {
+    $.each(names, function(index, value) {
+      var a = document.createElement('a');
+      a.innerHTML = '<p class="nameList">' + value + '</p>';
+      a.title = value;
+      a.href = "/" + value;
+      $('#searchResults')[0].appendChild(a);
+    });
+  }
+  </script>
+</html>
